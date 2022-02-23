@@ -50,14 +50,14 @@ jobs:
           format: 'json'
 
       - name: Get changed dir list
-        id: ami-name
+        id: dir-list
         run: |
-          dir_list=$(jq -jc '[.[] | capture("(?<=^ami\/)(?!COURSE-TEMPLATE)(?<name>[A-z|\\-|_|0-9]*)(?=\/.*)").name] | sort | unique' <<<'${{ steps.files.outputs.all }}')
+          dir_list=$(jq -jc '[.[] | capture("(?<=^docs\/)(?!COURSE-TEMPLATE)(?<name>[A-z|\\-|_|0-9]*)(?=\/.*)").name] | sort | unique' <<<'${{ steps.files.outputs.all }}')
           echo "::set-output name=matrix::$dir_list"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     outputs:
-      matrix: ${{ steps.ami-name.outputs.matrix }}
+      matrix: ${{ steps.dir-list.outputs.matrix }}
 
 
   # deploy pr changes againts staging branch - spit out to gh pages
@@ -156,14 +156,16 @@ jobs:
       # # example addition to run localized builds
       # - name: Run localized build
       #   run: 'mkdocs build --config-file mkdocs-${{ matrix.course }}-jp.yml'
-      - name: Sync to S3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'eu-central-1'
-          SOURCE_DIR: 'site/'
-          DEST_DIR: 'content/${{ matrix.course }}'
+      - name: Jobs Done
+        run: echo Job is done
+      # - name: Sync to S3
+      #   uses: jakejarvis/s3-sync-action@master
+      #   with:
+      #     args: --follow-symlinks --delete
+      #   env:
+      #     AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     AWS_REGION: 'eu-central-1'
+      #     SOURCE_DIR: 'site/'
+      #     DEST_DIR: 'content/${{ matrix.course }}'
