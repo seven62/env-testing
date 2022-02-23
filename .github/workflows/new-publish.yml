@@ -1,0 +1,169 @@
+# this workflow runs on:
+#
+---
+
+name: New Publish
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, reopened, closed ]
+
+  push:
+    branches: 
+      - main
+    paths:
+      - '**.yml'
+      - '**.md'
+      - '!_COURSE-TEMPLATE/**'
+      - '!.github/**'
+      - '!site/**'
+      - '!CHANGELOG'
+      - '!developer-guide.md'
+      - '!README.md'
+      - '!STYLEGUIDE.md'
+      - '!USER-GUIDE.md'
+
+jobs:
+
+  Close_job:
+    # this job will only run if the PR has been closed without being merged
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-20.04
+    steps:
+    - run: |
+        echo PR #${{ github.event.number }} has been closed without being merged
+
+
+
+  detect-change:
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout files from commit tree
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+        with:
+          format: 'json'
+
+      - name: Get changed dir list
+        id: ami-name
+        run: |
+          dir_list=$(jq -jc '[.[] | capture("(?<=^ami\/)(?!COURSE-TEMPLATE)(?<name>[A-z|\\-|_|0-9]*)(?=\/.*)").name] | sort | unique' <<<'${{ steps.files.outputs.all }}')
+          echo "::set-output name=matrix::$dir_list"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      matrix: ${{ steps.ami-name.outputs.matrix }}
+
+
+  # deploy pr changes againts staging branch - spit out to gh pages
+  staging:
+    name: Deploy to Staging (Pages)
+    if: github.event.pull_request.opened == true # add reopened here - syntax???
+    needs: Detect-change
+    environment: 
+      name: Staging
+      url: 'https://seven62.github.io/env-testing/'
+    runs-on: ubuntu-20.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    container:
+      image: ghcr.io/elastic/mkdocs-material-insiders-ia:education
+      credentials:
+        username: ${{ secrets.CUSTOM_GHCR_USERNAME}}
+        password: ${{ secrets.CUSTOM_GHCR_TOKEN }}
+    strategy:
+      fail-fast: false
+      matrix:
+        course: ${{ fromJson(needs.detect-change.outputs.matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Prepare for build
+        run: |
+          python setup.py install
+          rm -rf ./site/*
+      - name: Run build command
+        run: mkdocs build --config-file mkdocs-${{ matrix.course }}.yml
+      - name: Deploy to Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          commit_message: ${{ github.event.head_commit.message }}
+
+
+  # deploy to prod S3 and merge pr - on required approval
+  deploy-pr:
+    name: Deploy to Production
+    needs: [staging]
+    environment: 
+      name: Production
+    runs-on: ubuntu-20.04
+    container:
+      image: ghcr.io/elastic/mkdocs-material-insiders-ia:education
+      credentials:
+        username: ${{ secrets.CUSTOM_GHCR_USERNAME}}
+        password: ${{ secrets.CUSTOM_GHCR_TOKEN }}    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clear site dir
+        run: rm -rf ./site/*
+      - name: Run build
+        run: 'mkdocs build --config-file mkdocs-${{ matrix.course }}.yml'
+      # # example addition to run localized builds
+      # - name: Run localized build
+      #   run: 'mkdocs build --config-file mkdocs-${{ matrix.course }}-jp.yml'
+      - name: Sync to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'eu-central-1'
+          SOURCE_DIR: 'site/'
+          DEST_DIR: 'content/${{ matrix.course }}'
+
+
+  # deploy to prod S3 on direct push - codeowner protected
+  deploy-push:
+    name: Deploy to Production
+    environment: 
+      name: Production
+    runs-on: ubuntu-20.04
+    container:
+      image: ghcr.io/elastic/mkdocs-material-insiders-ia:education
+      credentials:
+        username: ${{ secrets.CUSTOM_GHCR_USERNAME}}
+        password: ${{ secrets.CUSTOM_GHCR_TOKEN }}    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clear site dir
+        run: rm -rf ./site/*
+      - name: Run build
+        run: 'mkdocs build --config-file mkdocs-${{ matrix.course }}.yml'
+      # # example addition to run localized builds
+      # - name: Run localized build
+      #   run: 'mkdocs build --config-file mkdocs-${{ matrix.course }}-jp.yml'
+      - name: Sync to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'eu-central-1'
+          SOURCE_DIR: 'site/'
+          DEST_DIR: 'content/${{ matrix.course }}'
