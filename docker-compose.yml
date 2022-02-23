@@ -1,0 +1,20 @@
+---
+version: "3"
+
+services:
+  mkdocs:
+    image: ghcr.io/elastic/mkdocs-material-insiders-ia@sha256:559a05276a55be00d12d884a1970ded070dfa4a328d4936961eeaa9844c27ae3
+    entrypoint: ["mkdocs"]
+    command: ["serve", "--dev-addr=0.0.0.0:8000", "-f", "${CONFIG}"]
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      LIVE_RELOAD_SUPPORT: 'true'
+      UPDATE_INTERVAL: 15
+      AUTO_UPDATE: 'true'
+    volumes:
+      - ${PWD}:/docs:ro
+
+# image release link: 
+# https://github.com/elastic/mkdocs-material-insiders-ia/pkgs/container/mkdocs-material-insiders-ia/14323538?tag=sha256-559a05276a55be00d12d884a1970ded070dfa4a328d4936961eeaa9844c27ae3.sig

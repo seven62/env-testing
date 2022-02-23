@@ -1,0 +1,180 @@
+# this workflow runs on push/commit to main 
+#   - checks what course path contains change(s)
+#   - builds mkdocs site content
+#   - publish to course sub-bucket
+---
+
+name: Publish Push
+
+on:
+  push:
+    branches: 
+      - main
+    paths:
+      - '**.yml'
+      - '**.md'
+      - '!_COURSE-TEMPLATE/**'
+      - '!.github/**'
+      - '!site/**'
+      - '!CHANGELOG'
+      - '!developer-guide.md'
+      - '!README.md'
+      - '!STYLEGUIDE.md'
+      - '!USER-GUIDE.md'
+
+jobs:
+  # detect what course directory contains changes
+  detect-change:
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step
+    outputs:
+      dak: ${{ steps.filter.outputs.dak }}
+      esa: ${{ steps.filter.outputs.esa }}
+      # <COURSE_DIR>: ${{ steps.filter.outputs.<COURSE_DIR> }}
+      # to add course, copy above to list
+    steps:
+    - uses: actions/checkout@v2
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        ref: 'main'
+        filters: |
+          dak:
+            - 'dak/**'
+          esa:
+            - 'esa/**'
+        #  <COURSE_DIR>:
+        #    - '<COURSE_DIR>/**'
+        # to add course, copy above to list
+
+
+  # build + publish DAK
+  dak-publish:
+    needs: detect-change
+    if: ${{ needs.detect-change.outputs.dak == 'true' }}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/elastic/mkdocs-material-insiders-ia:education
+      credentials:
+        username: ${{ secrets.CUSTOM_GHCR_USERNAME}}
+        password: ${{ secrets.CUSTOM_GHCR_TOKEN }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Clear site dir
+      run: rm -rf ./site/*
+
+    - name: Run build command
+      run: 'mkdocs build -f mkdocs-dak.yml'
+
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'eu-central-1'
+        SOURCE_DIR: 'site/'
+        DEST_DIR: 'content/dak/'
+
+
+  # DAK LOCALIZATION
+  # - build + publish DAK-JP
+  dak-publish-jp:
+    needs: detect-change
+    if: ${{ needs.detect-change.outputs.dak == 'true' }}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/elastic/mkdocs-material-insiders-ia:education
+      credentials:
+        username: ${{ secrets.CUSTOM_GHCR_USERNAME}}
+        password: ${{ secrets.CUSTOM_GHCR_TOKEN }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Clear site dir
+      run: rm -rf ./site/*
+    - name: Run build command
+      run: 'mkdocs build -f mkdocs-dak-jp.yml'
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'eu-central-1'
+        SOURCE_DIR: 'site/'
+        DEST_DIR: 'content/dak-jp/'
+
+
+  # build + publish ESA
+  esa-publish:
+    needs: detect-change
+    if: ${{ needs.detect-change.outputs.esa == 'true' }}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/elastic/mkdocs-material-insiders-ia:education
+      credentials:
+        username: ${{ secrets.CUSTOM_GHCR_USERNAME}}
+        password: ${{ secrets.CUSTOM_GHCR_TOKEN }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Clear site dir
+      run: rm -rf ./site/*
+    - name: Run build command
+      run: 'mkdocs build -f mkdocs-esa.yml'
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'eu-central-1'
+        SOURCE_DIR: 'site/'
+        DEST_DIR: 'content/esa/'
+
+
+
+
+
+
+##############  BUILD TEMPLATE  #############
+#   - copy the below workflow and paste above
+#   - update all "<COURSE_DIR>" to match dir
+#   - reference above (production) examples
+##############################################
+
+
+  # # build + publish <COURSE_DIR>
+  # <COURSE_DIR>-publish:
+  #   needs: detect-change
+  #   if: ${{ needs.detect-change.outputs.<COURSE_DIR> == 'true' }}
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: ghcr.io/elastic/mkdocs-material-insiders-ia:education
+  #     credentials:
+  #       username: ${{ secrets.CUSTOM_GHCR_USERNAME}}
+  #       password: ${{ secrets.CUSTOM_GHCR_TOKEN }}
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v2
+  #   - name: Clear site dir
+  #     run: rm -rf ./site/*
+  #   - name: Run build command
+  #     run: 'mkdocs build -f mkdocs-<COURSE_DIR>.yml'
+  #   - uses: jakejarvis/s3-sync-action@master
+  #     with:
+  #       args: --follow-symlinks --delete
+  #     env:
+  #       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+  #       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #       AWS_REGION: 'eu-central-1'
+  #       SOURCE_DIR: 'site/'
+  #       DEST_DIR: 'content/<COURSE_DIR>/'

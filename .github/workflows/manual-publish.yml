@@ -1,0 +1,47 @@
+# - manually publish using actions UI easy button
+---
+
+name: Manual Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      course_name:
+        description: 'Course Directory Name:'
+        required: true
+
+env:
+  COURSE_NAME: ${{ github.event.inputs.course_name }}
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    container:
+      image: ghcr.io/elastic/mkdocs-material-insiders-ia:education
+      credentials:
+        username: ${{ secrets.CUSTOM_GHCR_USERNAME}}
+        password: ${{ secrets.CUSTOM_GHCR_TOKEN }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Clear site dir
+      run: rm -rf ./site/*
+
+    - name: Run build command
+      run: mkdocs build -f mkdocs-${{ env.COURSE_NAME }}.yml
+
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'eu-central-1'
+        SOURCE_DIR: 'site/'
+        DEST_DIR: 'content/${{ env.COURSE_NAME }}/'

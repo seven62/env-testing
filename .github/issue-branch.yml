@@ -1,0 +1,10 @@
+# custom configuration options for the issue-branch workflow
+---
+gitSafeReplacementChar: '-'
+commentMessage: 'Branch ${branchName} created for later PR'
+branchName: '${issue.title,}'
+branches:
+  - label: new-content
+    name: main
+  - label: '*'
+    skip: true

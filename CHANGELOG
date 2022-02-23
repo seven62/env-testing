@@ -1,0 +1,15 @@
+# MKDOCS Docker Image
+
+
+## Latest
+
+- [2-2-2022 Release](https://github.com/elastic/mkdocs-material-insiders-ia/pkgs/container/mkdocs-material-insiders-ia/14323538?tag=sha256-559a05276a55be00d12d884a1970ded070dfa4a328d4936961eeaa9844c27ae3.sig)
+
+<!-- ## Workflow
+
+The production image is the latest ":education" tag.   -->
+
+---
+
+- [Base Repo](https://github.com/elastic/mkdocs-material-insiders-ia/pkgs/container/mkdocs-material-insiders-ia/14323535?tag=education)
+- [Packages](https://github.com/orgs/elastic/packages?tab=packages&q=mkdocs-material-insiders-ia)

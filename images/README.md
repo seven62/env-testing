@@ -1,0 +1,1 @@
+This images/ directory hold files just for the user-guide and styling guide. 

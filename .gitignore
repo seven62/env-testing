@@ -1,0 +1,8 @@
+**/pyenv
+
+.DS_Store
+.idea
+
+# ignore rendered site files
+# site
+

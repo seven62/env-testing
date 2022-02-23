@@ -1,0 +1,92 @@
+---
+###### Course Specifics
+# The following keys are defined in the course specific yml files
+# and are listed here for reference only.
+#
+# site_name: 'Data Analysis with Kibana'
+# logo: 'img/elastic-logo.svg'
+# favicon: 'images/favicon.ico'
+
+site_description: 'Student resources for Testing'
+site_author: 'Testing'
+site_name: 'Testing'
+
+copyright: '© Elasticsearch BV 2015-2022. All rights reserved. Decompiling,
+  copying, publishing and/or distribution without written consent of
+  Elasticsearch BV is strictly prohibited.'
+
+# Visual Configuration
+theme:
+  name: 'material'
+  language: 'en'
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.tabs.sticky
+    - search.suggest
+    - search.highlight
+    - search.share
+
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: education
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+  font:
+    text: 'Inter, Roboto'
+    code: 'Roboto Mono'
+  icon:
+    repo: fontawesome/brands/github
+
+
+# Extensions
+markdown_extensions:
+  - pymdownx.tabbed
+  - pymdownx.superfences
+  - pymdownx.keys
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - admonition
+  - meta
+  - def_list
+  - attr_list
+#  - codehilite:
+#      guess_lang: false
+#  - toc:
+#      permalink: true
+
+
+plugins:
+  - search
+  - monorepo
+  - tags:
+      tags_file: tags.md
+
+
+# Custom Styling
+extra_css:
+  - 'stylesheets/extra.css'
+
+
+# Customization
+extra:
+  generator: false
+
+# Page Tree Layout
+nav:
+  - Home:
+    - index.md
+    - Lab Environment: classroom-guide/lab-environment.md
+    - Troubleshooting: classroom-guide/troubleshooting.md`
