@@ -15,4 +15,4 @@ jobs:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: ${{ github.repository }}
         with:
-          path: ./.projects/course-update.yml
+          path: ./.projects/board-update.yml
