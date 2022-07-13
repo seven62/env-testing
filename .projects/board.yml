@@ -1,0 +1,28 @@
+description: This is a collection of issues to populate all the tasks required to work through a course update.
+
+materials:
+  - name: Cardname1
+    description: >-
+      Detailed card description
+    url: https://elastic.co
+  - name: Cardname2
+    description: >-
+      Detailed card description
+    url: https://elastic.co
+  - name: Cardname3
+    description: >-
+      Detailed card description
+    url: https://elastic.co
+  - name: Cardname4
+    description: >-
+      Detailed card description
+    url: https://elastic.co
+
+# this is used to set up a project board with issues turned into cards
+board:
+  name: curriculum-update
+  description: '@curriclum-dev workflow to update content'
+  columns:
+    - TODO
+    - DOING
+    - DONE
