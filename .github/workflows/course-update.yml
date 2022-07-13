@@ -3,7 +3,7 @@ name: project - course update
 on: workflow_dispatch
 
 jobs:
-  setup:
+  board-setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

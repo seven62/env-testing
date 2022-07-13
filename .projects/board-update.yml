@@ -5,10 +5,10 @@ board:
   name: Course Update
   description: '@curriclum-dev process to produce course version update'
   columns:
-    - Backlog
+    - TODO
     - Working
-    - QA
-    - DONE
+    - Review
+    - Done
 
 materials:
   - name: Merge-a-Matic
