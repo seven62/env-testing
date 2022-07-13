@@ -20,8 +20,8 @@ materials:
 
 # this is used to set up a project board with issues turned into cards
 board:
-  name: curriculum-update
-  description: '@curriclum-dev workflow to update content'
+  name: '[ COURSE ] curriculum update - v#.#'
+  description: '@curriclum-dev workflows to update content'
   columns:
     - TODO
     - DOING
