@@ -1,0 +1,47 @@
+# repo cleanup and maintenace
+# https://github.com/marketplace/actions/close-stale-issues
+---
+
+name: Close inactive issues
+on:
+  schedule:
+    - cron: "30 1 * * *"
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/stale@v5
+        with:
+          days-before-issue-stale: 1
+          days-before-issue-close: 2
+          stale-issue-label: "triage/stale"
+          stale-issue-message: >-
+            Hi Elastician,
+            This issue hasn't been addressed in a while!
+
+            We're labeling this issue as `triage/stale`. It would be helpful if you could take a look at it and confirm it's still relevant.
+
+            Thanks and happy hacking!
+            -- The Curriculum Dev Team :mortar_board:
+          close-issue-message: >
+              Hi Elastician,
+              This PR has been stale for a while and we're going to close it as part of our cleanup process.
+          days-before-pr-stale: 7
+          days-before-pr-close: 14
+          stale-pr-label: "triage/stale"
+          stale-pr-message: >-
+            Hi Elastician,
+            This PR has been stale for a while and we're going to close it as part of our cleanup process.
+
+            Feel free to re-open this PR if you think it should stay open and is worth rebasing. ;)
+
+            -- The Curriculum Dev Team :mortar_board:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+
+# todo
+# exempt labels
