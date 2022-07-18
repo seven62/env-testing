@@ -3,7 +3,7 @@ description: This is a collection of issues to populate all the tasks required t
 materials:
   - name: Cardname1
     description: >-
-      Detailed card description
+      Detailed card description for ${{ env.COURSE_NAME }} update
     url: https://elastic.co
   - name: Cardname2
     description: >-
