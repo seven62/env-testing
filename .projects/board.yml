@@ -3,13 +3,15 @@ description: This is a collection of issues to populate all the tasks required t
 materials:
   - name: QC - Internal Testing
     description: |
-      _Note: This testing requires other team objectives to be complete!_
+      _Note: This testing requires tasks from design / ops to be complete!_
+      *owner:* @
       - [ ] test entire course all working together
       - [ ] stamp final (internal) approval
     url: https://app.strigo.io/lounge/classes
   - name: Design - Slides and Visuals
     description: |
       Update all the other assests starting with slides:
+      *owner:* @
       - [ ] update slides
       - [ ] update version number in google slide
       - [ ] update version number in the comment of the google slide
@@ -18,6 +20,7 @@ materials:
     url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
   - name: Content - lab updates
     description: |
+      *owner:* @
       - [ ] update module 1
       - [ ] update module 2
       - [ ] update module ...
@@ -28,6 +31,7 @@ materials:
   - name: Infra - AMI Updates
     description: |
       Create a new image from latest base build:
+      *owner:* @
       - [ ] playbook updates
       - [ ] build test AMI @dev
       - [ ] test the AMI (full stack testing, index, etc.)
