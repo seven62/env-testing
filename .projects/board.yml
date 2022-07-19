@@ -14,6 +14,7 @@ materials:
       - [ ] update version number in google slide
       - [ ] update version number in the comment of the google slide
       - [ ] update chapter links in the google slide agenda
+      - [ ] move course from 3-Development/<course> to (release) 1-Latest!
     url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
   - name: Content - lab updates
     description: |
