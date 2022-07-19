@@ -2,7 +2,7 @@ description: This is a collection of issues to populate all the tasks required t
 
 materials:
   - name: Infra - AMI Updates
-    description: >-
+    description: |
       Create a new image from latest base build:
       - [ ] playbook updates
       - [ ] build test AMI @dev
@@ -13,7 +13,7 @@ materials:
       - [ ] create internal "-dev" class in Strigo for internal testing
     url: https://github.com/elastic/curriculum-infra
   - name: Content - lab updates
-    description: >-
+    description: |
       - [ ] update module 1
       - [ ] update module 2
       - [ ] update module ...
@@ -22,7 +22,7 @@ materials:
       - [ ] upload .zip file to S3 (automated)
     url: https://github.com/elastic/curriculum-content
   - name: Design - Slides and Visuals 
-    description: >-
+    description: |
       Update all the other assests starting with slides:
       - [ ] update slides
       - [ ] update version number in google slide
@@ -30,7 +30,7 @@ materials:
       - [ ] update chapter links in the google slide agenda
     url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
   - name: QC - Internal Testing
-    description: >-
+    description: |
       _Note: This testing requires other team objectives to be complete!_
       - [ ] test entire course all working together
       - [ ] stamp final (internal) approval
