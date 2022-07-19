@@ -2,13 +2,6 @@ name: Project Build
 
 on:
   workflow_dispatch:
-    inputs:
-      course_name:
-        description: 'Course Directory Name:'
-        required: true
-
-env:
-  COURSE_NAME: ${{ github.event.inputs.course_name }}
 
 jobs:
   build:
