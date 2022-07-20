@@ -1,46 +1,69 @@
 description: This is a collection of issues to populate all the tasks required to work through a course update or release.
 
 materials:
-  - name: QC - Internal Testing
+  - name: Phase 4 - Internal Testing & QA
     description: |
-      _Note: This testing requires tasks from design / ops to be complete!_
+      Full testing to confirm everything is working together!
       *owner:* @
-      - [ ] test entire course all working together
-      - [ ] stamp final (internal) approval
+      - [ ] test entire course in Strigo-dev
+      - [ ] github PR review from >= 3 members @curriculum-dev
+      _support and apply fixes during pilot_
+      - [ ] apply release tag to content/main
+      - [ ] apply release tag to content/main
+      - [ ] move course from 3-Development to (release) 1-Latest!
     url: https://app.strigo.io/lounge/classes
-  - name: Design - Slides and Visuals
+
+  - name: Phase 3 - Slides and Visuals
     description: |
-      Update all the other assests starting with slides:
+      Update training deck and other visual assests:
       *owner:* @
-      - [ ] update slides
-      - [ ] update version number in google slide
-      - [ ] update version number in the comment of the google slide
-      - [ ] update chapter links in the google slide agenda
-      - [ ] move course from 3-Development/<course> to (release) 1-Latest!
+      - [ ] update slide deck
+        - [ ] version numbers in gslides and comments
+        - [ ] chapter links in google slide agenda
+      _support and apply fixes during pilot_
+
     url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
-  - name: Content - lab updates
+
+  - name: Phase 2.2 - Lab Content
     description: |
+      Update module labs steps using starting-point AMI
       *owner:* @
-      - [ ] update module 1
-      - [ ] update module 2
-      - [ ] update module ...
-      - [ ] update version number in vars
-      - [ ] build student zip file (automated)
-      - [ ] upload .zip file to S3 (automated)
+      - [ ] review latest style-guide changes
+      - [ ] update course vars
+      - [ ] module 1
+      - [ ] module 2
+      - [ ] module ...
+      _support and apply fixes during pilot_
+
     url: https://github.com/elastic/curriculum-content
-  - name: Infra - AMI Updates
+
+  - name: Phase 2.1 - AMI Update
     description: |
-      Create a new image from latest base build:
+      Create a new starting-point image from latest base build:
       *owner:* @
       - [ ] playbook updates
       - [ ] build test AMI @dev
       - [ ] test the AMI (full stack testing, index, etc.)
       - [ ] create a release candidate
       **Make sure that no class are running before updating the class**
-      - [ ] pdate and share AMI in Strigo 
+      - [ ] update and share AMI in Strigo 
       - [ ] create internal "-dev" class in Strigo for internal testing
     url: https://github.com/elastic/curriculum-infra
 
+  - name: Phase 1 - Planning and Input
+    description: |
+      Team feedback gathering and change planning
+      *owner:* @
+      - [ ] solution/update owner named (confirmed)
+      - [ ] GH discussion (announcement) as RFC
+        - [ ] share in `#education` + email
+        - [ ] allow 2 weeks input gathering
+      - [ ] updates and outline finalized
+        - [ ] define AMI requirements
+        - [ ] define significant module changes
+      - [ ] post finalized update doc to discussion to stamp "closed"
+
+    url: https://github.com/elastic/curriculum-infra
 
 # this is used to set up a project board with issues turned into cards
 board:
