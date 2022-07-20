@@ -8,9 +8,10 @@ materials:
       - [ ] test entire course in Strigo-dev
       - [ ] github PR review from >= 3 members @curriculum-dev
       _support and apply fixes during pilot_
-      - [ ] apply release tag to content/main
-      - [ ] apply release tag to content/main
+      - [ ] content repo - apply release tag
+      - [ ] infra repo - apply release tag
       - [ ] move course from 3-Development to (release) 1-Latest!
+    
     url: https://app.strigo.io/lounge/classes
 
   - name: Phase 3 - Slides and Visuals
@@ -48,6 +49,7 @@ materials:
       **Make sure that no class are running before updating the class**
       - [ ] update and share AMI in Strigo 
       - [ ] create internal "-dev" class in Strigo for internal testing
+    
     url: https://github.com/elastic/curriculum-infra
 
   - name: Phase 1 - Planning and Input
@@ -63,7 +65,7 @@ materials:
         - [ ] define significant module changes
       - [ ] post finalized update doc to discussion to stamp "closed"
 
-    url: https://github.com/elastic/curriculum-infra
+    url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
 
 # this is used to set up a project board with issues turned into cards
 board:
