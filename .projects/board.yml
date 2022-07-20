@@ -11,6 +11,9 @@ materials:
       - [ ] content repo - apply release tag
       - [ ] infra repo - apply release tag
       - [ ] move course from 3-Development to (release) 1-Latest!
+      - share testing complete
+        - [ ] link in slack
+        - [ ] email digest      
     
     url: https://app.strigo.io/lounge/classes
 
@@ -63,7 +66,9 @@ materials:
       - [ ] updates and outline finalized
         - [ ] define AMI requirements
         - [ ] define significant module changes
-      - [ ] post finalized update doc to discussion to stamp "closed"
+      - share finalized update doc to discussion
+        - [ ] link in slack
+        - [ ] email digest
 
     url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
 
