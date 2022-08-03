@@ -1,0 +1,21 @@
+name: My Learning Space
+
+# this lets you run it manually after the template is used to generate a new repo
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Run action
+      uses: lpmi-13/learning-space-single-setup@v1.0.0
+      env:
+        # this is the default token available during actions, so
+        # you don't need to create one yourself
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPOSITORY: ${{ github.repository }}
+      with:
+        # reference the local configuration file
+        path: ./learning/materials.yml
