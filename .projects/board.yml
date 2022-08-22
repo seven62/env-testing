@@ -1,7 +1,15 @@
 description: This is a collection of issues to populate all the tasks required to work through a course update or release.
 
 materials:
-  - name: Phase 4 - Internal Testing & QA
+
+  - name: Phase 4 - On-demand Assets
+    description: |
+      Create all assets specific to on-demand delivery
+      *owner:* @
+      - [ ] create transcripts
+      - [ ] learning questions
+  
+  - name: Phase 3 - Internal Testing & QA
     description: |
       Full testing to confirm everything is working together!
       *owner:* @
@@ -11,22 +19,18 @@ materials:
       - [ ] content repo - apply release tag
       - [ ] infra repo - apply release tag
       - [ ] move course from 3-Development to (release) 1-Latest!
-      - share testing complete
-        - [ ] link in slack
-        - [ ] email digest      
-    
-    url: https://app.strigo.io/lounge/classes
-
-  - name: Phase 3 - Slides and Visuals
+      - [ ] release notes update
+      - [ ] update PMO testing is complete
+ 
+  - name: Phase 2.3 - Slides and Visuals
     description: |
       Update training deck and other visual assests:
       *owner:* @
       - [ ] update slide deck
+        - [ ] screenshot updates
         - [ ] version numbers in gslides and comments
         - [ ] chapter links in google slide agenda
       _support and apply fixes during pilot_
-
-    url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
 
   - name: Phase 2.2 - Lab Content
     description: |
@@ -39,8 +43,6 @@ materials:
       - [ ] module ...
       _support and apply fixes during pilot_
 
-    url: https://github.com/elastic/curriculum-content
-
   - name: Phase 2.1 - AMI Update
     description: |
       Create a new starting-point image from latest base build:
@@ -52,8 +54,6 @@ materials:
       **Make sure that no class are running before updating the class**
       - [ ] update and share AMI in Strigo 
       - [ ] create internal "-dev" class in Strigo for internal testing
-    
-    url: https://github.com/elastic/curriculum-infra
 
   - name: Phase 1 - Planning and Input
     description: |
@@ -69,8 +69,6 @@ materials:
       - share finalized update doc to discussion
         - [ ] link in slack
         - [ ] email digest
-
-    url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
 
 # this is used to set up a project board with issues turned into cards
 board:
