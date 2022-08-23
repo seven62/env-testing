@@ -20,7 +20,7 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     container:
-      image: ghcr.io/elastic/mkdocs-material-insiders-ia:education
+      image: ghcr.io/elastic/mkdocs-material-insiders:education
       credentials:
         username: ${{ secrets.CUSTOM_GHCR_USERNAME}}
         password: ${{ secrets.CUSTOM_GHCR_TOKEN }}
