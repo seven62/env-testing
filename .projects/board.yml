@@ -8,6 +8,9 @@ materials:
       *owner:* @
       - [ ] create transcripts
       - [ ] learning questions
+      - [ ] ...
+      
+    url: ''
   
   - name: Phase 3 - Internal Testing & QA
     description: |
@@ -15,12 +18,16 @@ materials:
       *owner:* @
       - [ ] test entire course in Strigo-dev
       - [ ] github PR review from >= 3 members @curriculum-dev
-      _support and apply fixes during pilot_
-      - [ ] content repo - apply release tag
-      - [ ] infra repo - apply release tag
-      - [ ] move course from 3-Development to (release) 1-Latest!
-      - [ ] release notes update
-      - [ ] update PMO testing is complete
+      - _support and apply fixes during pilot_
+      - Cleaning House
+        - [ ] content repo - apply release tag
+        - [ ] infra repo - apply release tag
+        - [ ] move course from 3-Development to (release) 1-Latest!
+        - [ ] release notes update
+        - [ ] notify PMO - internal testing complete
+    - _support and apply fixes during pilot_
+    
+    url: https://app.strigo.io/lounge/classes
  
   - name: Phase 2.3 - Slides and Visuals
     description: |
@@ -30,7 +37,9 @@ materials:
         - [ ] screenshot updates
         - [ ] version numbers in gslides and comments
         - [ ] chapter links in google slide agenda
-      _support and apply fixes during pilot_
+      - _support and apply fixes during pilot_
+      
+    url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
 
   - name: Phase 2.2 - Lab Content
     description: |
@@ -43,6 +52,8 @@ materials:
       - [ ] module ...
       _support and apply fixes during pilot_
 
+    url: 'https://github.com/elastic/curriculum-content'
+
   - name: Phase 2.1 - AMI Update
     description: |
       Create a new starting-point image from latest base build:
@@ -54,6 +65,8 @@ materials:
       **Make sure that no class are running before updating the class**
       - [ ] update and share AMI in Strigo 
       - [ ] create internal "-dev" class in Strigo for internal testing
+    
+    url: 'https://github.com/elastic/curriculum-infra'
 
   - name: Phase 1 - Planning and Input
     description: |
@@ -66,9 +79,9 @@ materials:
       - [ ] updates and outline finalized
         - [ ] define AMI requirements
         - [ ] define significant module changes
-      - share finalized update doc to discussion
-        - [ ] link in slack
-        - [ ] email digest
+      - [ ] notify PMO - input & planning complete
+    
+    url: `https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX`
 
 # this is used to set up a project board with issues turned into cards
 board:
