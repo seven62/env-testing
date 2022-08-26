@@ -8,8 +8,6 @@ materials:
       *owner:* @
       - [ ] create transcripts
       - [ ] learning questions
-      - [ ] ...
-      
     url: ''
   
   - name: Phase 3 - Internal Testing & QA
@@ -25,8 +23,6 @@ materials:
         - [ ] move course from 3-Development to (release) 1-Latest!
         - [ ] release notes update
         - [ ] notify PMO - internal testing complete
-    - _support and apply fixes during pilot_
-    
     url: https://app.strigo.io/lounge/classes
  
   - name: Phase 2.3 - Slides and Visuals
@@ -37,8 +33,6 @@ materials:
         - [ ] screenshot updates
         - [ ] version numbers in gslides and comments
         - [ ] chapter links in google slide agenda
-      - _support and apply fixes during pilot_
-      
     url: https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX
 
   - name: Phase 2.2 - Lab Content
@@ -50,8 +44,6 @@ materials:
       - [ ] module 1
       - [ ] module 2
       - [ ] module ...
-      _support and apply fixes during pilot_
-
     url: 'https://github.com/elastic/curriculum-content'
 
   - name: Phase 2.1 - AMI Update
@@ -62,10 +54,9 @@ materials:
       - [ ] build test AMI @dev
       - [ ] test the AMI (full stack testing, index, etc.)
       - [ ] create a release candidate
-      **Make sure that no class are running before updating the class**
+      - [ ] **ensure no class are running before updating the class**
       - [ ] update and share AMI in Strigo 
       - [ ] create internal "-dev" class in Strigo for internal testing
-    
     url: 'https://github.com/elastic/curriculum-infra'
 
   - name: Phase 1 - Planning and Input
@@ -80,7 +71,6 @@ materials:
         - [ ] define AMI requirements
         - [ ] define significant module changes
       - [ ] notify PMO - input & planning complete
-    
     url: `https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX`
 
 # this is used to set up a project board with issues turned into cards
