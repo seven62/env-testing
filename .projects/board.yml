@@ -71,7 +71,7 @@ materials:
         - [ ] define AMI requirements
         - [ ] define significant module changes
       - [ ] notify PMO - input & planning complete
-    url: `https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX`
+    url: 'https://drive.google.com/drive/u/0/folders/1u18Vqi-04FuWepf2AwYQVWBisbiPIZGX'
 
 # this is used to set up a project board with issues turned into cards
 board:
