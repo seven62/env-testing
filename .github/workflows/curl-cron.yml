@@ -1,0 +1,34 @@
+name: "Periodically reindex docebo scheduling data in Vision"
+ 
+on:
+  schedule:
+    # Run hourly at :55
+    - cron:  '55 * * * *'
+
+  workflow_dispatch:
+
+ 
+jobs:
+  run-reindex-request:
+    runs-on: ubuntu-latest
+    steps:
+    - name: ES Vision _reindex request with curl
+      run: |
+        curl -XPOST -u ${{ secrets.TRAINING_INTEGRATION_AUTHENTICATION }} "${{ secrets.VISION_ENDPOINT }}/_reindex" -H 'Content-Type: application/json' -d'
+        {
+          "source": { "index": "docebo_training_schedule" },
+          "dest": { "index": "trg_docebo_training_schedule" }
+        }'
+    - name: Update eenrich index
+      run: |
+        curl -XPOST -u ${{ secrets.TRAINING_INTEGRATION_AUTHENTICATION }} "${{ secrets.VISION_ENDPOINT }}/_enrich/policy/delivery_info_policy/_execute" 
+
+#        
+#        - run: |
+#         curl --location --request POST 'https://panel.discordbothosting.com/api/client/servers/fd21d417/power' \
+#           --header 'Accept: application/json' \
+#           --header 'Content-Type: application/json' \
+#           --header 'Authorization: Bearer APIKEY' \
+#           --data-raw '{
+#             "signal": "restart"
+#           }'
