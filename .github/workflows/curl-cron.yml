@@ -14,8 +14,8 @@ jobs:
     steps:
     - name: ES Vision _reindex request with curl
       run: |
-        curl -XPOST -u ${{ secrets.TRAINING_INTEGRATION_AUTHENTICATION }} "${{ secrets.VISION_ENDPOINT }}/_reindex" -H 'Content-Type: application/json' -d'
-        {
+        curl -XPOST -u "${{ secrets.TRAINING_INTEGRATION_AUTHENTICATION }}" "${{ secrets.VISION_ENDPOINT }}"/_reindex -H 'Content-Type: application/json' '-d'
+        '{
           "source": { "index": "docebo_training_schedule" },
           "dest": { "index": "trg_docebo_training_schedule" }
         }'
