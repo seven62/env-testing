@@ -14,12 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Reindex request
+      env:
+        ENDPOINT: ${{ secrets.VISION_ENDPOINT }}
       run: |
         curl -XPOST -u "${{secrets.VISION_TRG_INT_USER}}":"${{ secrets.VISION_TRG_INT_PASS }}" 
-        "'${{ secrets.VISION_ENDPOINT }}'/_reindex" -H 'Content-Type: application/json' -d 
+        "$ENDPOINT"/_reindex" -H 'Content-Type: application/json' -d 
         '{"source":{"index":"docebo_training_schedule"},"dest":{"index":"trg_docebo_training_schedule"}}'
     
     - name: Update enrich index
+      env:
+        ENDPOINT: ${{ secrets.VISION_ENDPOINT }}
       run: |
         curl -XPOST -u "${{ secrets.VISION_TRG_INT_USER }}":"${{ secrets.VISION_TRG_INT_PASS }}" 
-        "'${{ secrets.VISION_ENDPOINT }}'/_enrich/policy/delivery_info_policy/_execute"
+        "$ENDPOINT"/_enrich/policy/delivery_info_policy/_execute"
