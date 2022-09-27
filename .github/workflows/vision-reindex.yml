@@ -18,4 +18,4 @@ jobs:
         curl -XPOST -u "${{secrets.VISION_TRG_INT_USER}}":"${{secrets.VISION_TRG_INT_PASS}}" "https://232a7d3189bd4bc5b4d8d5d1ee6dd055.us-west1.gcp.cloud.es.io/_reindex" -H 'Content-Type: application/json' -d '{"source":{"index":"docebo_training_schedule"},"dest":{"index":"trg_docebo_training_schedule"}}'
     - name: Update enrich index
       run: |
-        curl -XPOST -u "${{secrets.VISION_TRG_INT_USER}}":"${{secrets.VISION_TRG_INT_PASS}}" "https://232a7d3189bd4bc5b4d8d5d1ee6dd055.us-west1.gcp.cloud.es.io/_reindex"/_enrich/policy/delivery_info_policy/_execute"
+        curl -XPOST -u "${{secrets.VISION_TRG_INT_USER}}":"${{secrets.VISION_TRG_INT_PASS}}" "https://232a7d3189bd4bc5b4d8d5d1ee6dd055.us-west1.gcp.cloud.es.io/_enrich/policy/delivery_info_policy/_execute"
