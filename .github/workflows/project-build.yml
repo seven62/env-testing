@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Run action
-      uses: learning-as-code/learning-space-single-setup@v1.0.0
+      uses: lpmi-13/learning-space-single-setup@v1.0.0
       env:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REPOSITORY: ${{ github.repository }}
